@@ -1,0 +1,6 @@
+<div class="search-container">
+	<span>Welcome.</span>
+	<p>Millions of movies to discover. Explore now.</p>
+  <input type="text" [(ngModel)]="query" placeholder="Search for a movie...">
+	<button mat-button [routerLink]="['/search']" [queryParams]="{ query: query }">Search</button>
+</div>
