@@ -1,2 +1,14 @@
-
-<app-movie-list></app-movie-list>
+<mat-toolbar color="primary">
+	<div class="movie-icon">
+    <mat-icon>local_movies</mat-icon>
+		<span>Movie DB</span>
+  </div>
+    <div class="group">
+			<button mat-button>Popular</button>
+			<button mat-button>Top rated</button>
+			<button mat-button>Upcoming</button>
+		</div>
+</mat-toolbar>
+<div class="container">
+	<router-outlet></router-outlet>
+</div>
