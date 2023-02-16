@@ -1,0 +1,32 @@
+.main{
+	display: flex;
+}
+
+.sidebar{
+	flex: 0 0 200px;
+}
+
+.mainbar{
+
+	flex: 1 1 auto;
+}
+
+.movie-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.movie-card {
+	display: flex;
+	flex-direction: row;
+	margin: 1rem;
+	border: 1px solid #ddd;
+	border-radius: 0.5rem;
+	overflow: hidden;
+}
+
+.error{
+	text-align: center;
+	font-size: 24px;
+	margin: 25px 0px 0px 0px;
+}

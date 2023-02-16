@@ -1,1 +1,15 @@
-<h1>sssssss</h1>
+<div class="main">
+	<div class="sidebar">
+		<button (click)="sortByRating()">Sort by Rating</button>
+	</div>
+	<div class="mainbar">
+		<div class="movie-list" *ngIf="!message">
+			<div *ngFor="let movie of movieList$ | async" class="movie-card">
+				<app-search-page-list [movie]="movie"></app-search-page-list>
+			</div>
+		</div>
+		<div class="error" *ngIf="message">
+			There are no movies that matched your query.
+		</div>
+	</div>
+</div>

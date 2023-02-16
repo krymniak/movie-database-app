@@ -17,7 +17,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
 		MainPageComponent,
-		SearchComponent
+		SearchComponent,
   ],
   imports: [
     CommonModule,
