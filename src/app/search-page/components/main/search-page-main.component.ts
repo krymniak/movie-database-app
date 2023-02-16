@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, map, Observable, tap, of, throwError } from 'rxjs';
+import { map, Observable, tap} from 'rxjs';
 import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
 import { MovieService } from 'src/app/shared/services/movie.service';
 
@@ -22,7 +22,6 @@ export class SearchPageMainComponent implements OnInit{
 
 	searchQuery!: string | null;
 	message = '';
-	err = ''
 
 	ngOnInit(): void {
     this.searchQuery = this.route.snapshot.queryParamMap.get('query');
@@ -38,10 +37,28 @@ export class SearchPageMainComponent implements OnInit{
 		)
   }
 
-	sortByRating() {
-		this.movieList$ = this.movieList$.pipe(
-      map(movies => [...movies].sort((a, b) => b.vote_average - a.vote_average))
-    );
+	sort(criteria: string) {
+		switch (criteria) {
+			case 'rating':
+				this.movieList$ = this.movieList$.pipe(
+					map(movies => [...movies].sort((a, b) => b.vote_average - a.vote_average))
+				);
+				break;
+			case 'release_date':
+				this.movieList$ = this.movieList$.pipe(
+					map(movies => [...movies].sort((a, b) => a.release_date.localeCompare(b.release_date)))
+				);
+				break;
+			case 'title':
+				this.movieList$ = this.movieList$.pipe(
+					map(movies => [...movies].sort((a, b) => a.title.localeCompare(b.title)))
+				);
+				break;
+			case 'popularity':
+				this.movieList$ = this.movieList$.pipe(
+					map(movies => [...movies].sort((a, b) => b.popularity - a.popularity))
+				);
+		}
 	}
 
 }

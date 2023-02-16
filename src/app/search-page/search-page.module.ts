@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SearchPageListComponent } from './components/list/search-page-list.component';
 import { SearchPageMainComponent } from './components/main/search-page-main.component';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
 	{
@@ -18,6 +19,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+		MatButtonModule,
 		RouterModule.forChild(routes)
   ],
 	exports:[SearchPageListComponent],

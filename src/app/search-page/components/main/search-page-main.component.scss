@@ -30,3 +30,31 @@
 	font-size: 24px;
 	margin: 25px 0px 0px 0px;
 }
+
+.sidebar{
+	display: flex;
+	flex-direction: column;
+	h2{
+		text-align: center;
+		margin: 20px 0px 0px 0px;
+		font-size: 26px;
+	}
+	button {
+		text-align: center;
+		background-color: #05022e;
+		font-family: 'Montserrat';
+		font-size: 12px;
+		color: #ffffff;
+		height: 40px;
+		width: 100px;
+		border-radius: 5px;
+		margin: 10px 0px 10px 50px;
+	}
+	button:hover {
+		color: #00d9ff;
+	}
+	
+	button:active {
+		transform: scale(0.95);
+	}
+}

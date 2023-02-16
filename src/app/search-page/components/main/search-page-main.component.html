@@ -1,6 +1,10 @@
 <div class="main">
 	<div class="sidebar">
-		<button (click)="sortByRating()">Sort by Rating</button>
+		<h2>Sort by:</h2>
+		<button mat-button (click)="sort('rating')">Rating</button>
+		<button mat-button (click)="sort('release_date')">Release date</button>
+		<button mat-button (click)="sort('title')">Title</button>
+		<button mat-button (click)="sort('popularity')">Popularity</button>
 	</div>
 	<div class="mainbar">
 		<div class="movie-list" *ngIf="!message">
