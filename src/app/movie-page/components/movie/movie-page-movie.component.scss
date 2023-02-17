@@ -1,0 +1,40 @@
+.movie-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+}
+
+.movie-details-poster {
+  flex: 1;
+  max-width: 300px;
+  margin-right: 30px;
+}
+
+.movie-poster {
+  width: 100%;
+}
+
+.movie-details-info {
+  flex: 2;
+}
+
+.movie-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.movie-metadata {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.movie-metadata p {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.movie-metadata strong {
+  font-weight: bold;
+}

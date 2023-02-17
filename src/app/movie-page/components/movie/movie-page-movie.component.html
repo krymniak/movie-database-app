@@ -1,0 +1,16 @@
+
+<div class="movie-details">
+	<div class="movie-details-poster">
+		<img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }}" class="movie-poster">
+	</div>
+	<div class="movie-details-info">
+		<h1 class="movie-title">{{ movie.title }}</h1>
+		<div class="movie-metadata">
+			<p><strong>Release Date:</strong> {{ movie.release_date | date}}</p>
+			<p><strong>Runtime:</strong> {{ movie.runtime }} minutes</p>
+			<p><strong>Genres:</strong> {{ getGenreNames(movie.genres)  }}</p>
+			<p><strong>Overview:</strong> {{ movie.overview }}</p>
+			<p><strong>Production Companies:</strong> {{ getProductionCompanies(movie.production_companies)}}</p>
+		</div>
+	</div>
+</div>
