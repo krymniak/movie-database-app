@@ -20,4 +20,24 @@ export class MoviePageMovieComponent {
 		return production_companies.map(production_companies => production_companies.name).join(', ');
 	}
 
+	setDefaultPoster(event: Event) {
+		const img = event.target as HTMLImageElement;
+		img.src = '/assets/images/no-image-placeholder.svg';
+	}
+
+	getOffset(rating: number): number {
+    let percent = (rating / 10) * 376.99;
+    return 376.99 - percent;
+  }
+
+  getRatingColor(rating: number): string {
+    if (rating < 5) {
+      return 'red';
+    } else if (rating < 7.5) {
+      return 'yellow';
+    } else {
+      return 'green';
+    }
+  }
+
 }
