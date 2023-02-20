@@ -31,12 +31,12 @@ export class MoviePageMovieComponent {
   }
 
   getRatingColor(rating: number): string {
-    if (rating < 5) {
-      return 'red';
-    } else if (rating < 7.5) {
-      return 'yellow';
+    if (rating < 6) {
+      return 'warn';
+    } else if (rating < 7.9) {
+      return 'accent';
     } else {
-      return 'green';
+      return 'primary';
     }
   }
 

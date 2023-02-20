@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, Observable, tap} from 'rxjs';
 import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
@@ -12,6 +12,13 @@ import { MovieService } from 'src/app/shared/services/movie.service';
   styleUrls: ['./search-page-main.component.scss']
 })
 export class SearchPageMainComponent implements OnInit{
+
+	showScrollButton = false;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    this.showScrollButton = window.pageYOffset > 500; // adjust the threshold as needed
+  }
 
   constructor(
 		private route: ActivatedRoute,
@@ -60,5 +67,9 @@ export class SearchPageMainComponent implements OnInit{
 				);
 		}
 	}
+
+	scrollTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 }

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchPageListComponent } from './components/list/search-page-list.component';
 import { SearchPageMainComponent } from './components/main/search-page-main.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 const routes: Routes = [
 	{
@@ -19,6 +20,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+		MatIconModule,
 		MatButtonModule,
 		RouterModule.forChild(routes)
   ],

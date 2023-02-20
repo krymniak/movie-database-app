@@ -11,14 +11,12 @@
 		<h2>{{ movie.tagline }}</h2>
 		<div class="progress-bar" *ngIf="movie.vote_average">
 			<div class="progress-circle">
+				<mat-spinner [value]="movie.vote_average * 10"[color]="getRatingColor(movie.vote_average)" diameter="70" mode="determinate"></mat-spinner>
 				<div class="progress-number">{{ movie.vote_average }}</div>
-				<svg>
-					<circle [ngClass]="getRatingColor(movie.vote_average)" cx="35" cy="35" r="30" [style.strokeDashoffset]="getOffset(movie.vote_average)"></circle>
-
-				</svg>
 			</div>
 			<span>User rating</span>
 		</div>
+		
 		
 		<div class="movie-metadata">
 			<p> {{ movie.runtime }} minutes</p>
@@ -27,5 +25,6 @@
 			<p>{{ movie.overview }}</p>
 			<p *ngIf="movie.production_companies.length"><strong>Production Companies:</strong> {{ getProductionCompanies(movie.production_companies)}}</p>
 		</div>
+		
 	</div>
 </div>
