@@ -1,16 +1,24 @@
-import { Component, Input } from '@angular/core';
-import { Movie } from 'src/app/shared/interfaces/interface';
-
+import { Component, Input, OnInit } from '@angular/core';
+import { Movie, Video } from 'src/app/shared/interfaces/interface';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-page-movie',
   templateUrl: './movie-page-movie.component.html',
   styleUrls: ['./movie-page-movie.component.scss']
 })
-export class MoviePageMovieComponent {
-	@Input() movie!: Movie;
+export class MoviePageMovieComponent{
 
-  constructor() { }
+	@Input() movie!: Movie;
+	@Input() videos!: Video[] | null;
+
+  constructor(private sanitizer: DomSanitizer) { }
+
+
+	getSafeUrl(videoId: string): SafeResourceUrl {
+		return this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
+	}
+
 
 	getGenreNames(genres: { id: number; name: string }[]): string {
 		return genres.map(genre => genre.name).join(', ');
@@ -25,11 +33,6 @@ export class MoviePageMovieComponent {
 		img.src = '/assets/images/no-image-placeholder.svg';
 	}
 
-	getOffset(rating: number): number {
-    let percent = (rating / 10) * 376.99;
-    return 376.99 - percent;
-  }
-
   getRatingColor(rating: number): string {
     if (rating < 6) {
       return 'warn';
@@ -39,5 +42,7 @@ export class MoviePageMovieComponent {
       return 'primary';
     }
   }
+
+
 
 }

@@ -5,6 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MoviePageMainComponent } from './components/main/movie-page-main.component';
 import { MoviePageMovieComponent } from './components/movie/movie-page-movie.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
 
 const routes: Routes = [
 	{
@@ -21,6 +22,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
 		MatProgressSpinnerModule,
+		MatCardModule,
 		MatButtonModule,
 		RouterModule.forChild(routes)
   ],

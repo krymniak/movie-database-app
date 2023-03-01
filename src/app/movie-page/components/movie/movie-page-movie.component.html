@@ -16,8 +16,6 @@
 			</div>
 			<span>User rating</span>
 		</div>
-		
-		
 		<div class="movie-metadata">
 			<p> {{ movie.runtime }} minutes</p>
 			<p> {{ getGenreNames(movie.genres)  }}</p>
@@ -28,3 +26,20 @@
 		
 	</div>
 </div>
+
+<div class="videos-content">
+  <h2>VIDEOS</h2>
+  <div class="videos-container mat-card-container">
+    <mat-card *ngFor="let video of videos" class="video mat-card">
+      <iframe [src]="getSafeUrl(video.key)"
+              frameborder="0"
+							width="300px"
+							height="220px"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </mat-card>
+  </div>
+</div>
+
+
+

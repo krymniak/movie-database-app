@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Movie } from 'src/app/shared/interfaces/interface';
+import { Movie, MovieVideo, Video } from 'src/app/shared/interfaces/interface';
 import { MovieService } from 'src/app/shared/services/movie.service';
-import { Observable} from 'rxjs';
+import { delay, map, Observable, tap} from 'rxjs';
 
 
 @Component({
@@ -12,8 +12,10 @@ import { Observable} from 'rxjs';
 })
 export class MoviePageMainComponent implements OnInit{
 
+	movieId!: number | null
 	movie$!: Observable<Movie>
 	searchQuery!: string | null;
+	video$!: Observable<Video[]>
 
   constructor(
 		private route: ActivatedRoute,
@@ -23,14 +25,18 @@ export class MoviePageMainComponent implements OnInit{
 
 	ngOnInit(): void {
 		this.searchQuery = this.route.snapshot.queryParamMap.get('query');
-		this.movie$ = this.moviService.getMovieDetails(this.searchQuery)
+		this.movie$ = this.moviService.getMovieDetails(this.searchQuery).pipe(
+			tap((movie: Movie) => {
+				this.movieId = movie.id
+				this.video$ = this.moviService.getVideo(this.movieId).pipe(
+					map((data: MovieVideo) => {
+						return data.results
+					})
+				)
+			})
+		)
 	}
 
-	getGenreNames(genres: { id: number; name: string }[]): string {
-		return genres.map(genre => genre.name).join(', ');
-	}
+	
 
-	getProductionCompanies(production_companies: { id: number; name: string }[]): string {
-		return production_companies.map(production_companies => production_companies.name).join(', ');
-	}
 }

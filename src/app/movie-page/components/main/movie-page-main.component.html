@@ -1,5 +1,5 @@
 
 	<div *ngIf="(movie$ | async) as movie">
-		<app-movie-page-movie [movie]="movie"></app-movie-page-movie>
+		<app-movie-page-movie [movie]="movie" [videos]="video$ | async"></app-movie-page-movie>
 	</div>
 
