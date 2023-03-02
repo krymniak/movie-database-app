@@ -6,6 +6,8 @@ import { MoviePageMainComponent } from './components/main/movie-page-main.compon
 import { MoviePageMovieComponent } from './components/movie/movie-page-movie.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
+import { MoviePageImageExpanderComponent } from './components/image-expander/movie-page-image-expander.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 const routes: Routes = [
 	{
@@ -17,16 +19,19 @@ const routes: Routes = [
 @NgModule({
   declarations: [
 		MoviePageMainComponent,
-		MoviePageMovieComponent
+		MoviePageMovieComponent,
+		MoviePageImageExpanderComponent
   ],
   imports: [
     CommonModule,
 		MatProgressSpinnerModule,
+		MatDialogModule,
 		MatCardModule,
 		MatButtonModule,
 		RouterModule.forChild(routes)
   ],
-	exports:[MoviePageMovieComponent],
+	exports:[MoviePageMovieComponent,
+		MoviePageImageExpanderComponent],
   providers: [],
   bootstrap: []
 })

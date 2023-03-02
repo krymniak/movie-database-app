@@ -1,18 +1,33 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Movie, Video } from 'src/app/shared/interfaces/interface';
+import { Images, Movie, Poster, Video } from 'src/app/shared/interfaces/interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
+import { MoviePageImageExpanderComponent } from '../image-expander/movie-page-image-expander.component';
 
 @Component({
   selector: 'app-movie-page-movie',
   templateUrl: './movie-page-movie.component.html',
   styleUrls: ['./movie-page-movie.component.scss']
 })
-export class MoviePageMovieComponent{
+export class MoviePageMovieComponent implements OnInit{
 
 	@Input() movie!: Movie;
 	@Input() videos!: Video[] | null;
+	@Input() images!: Poster[] | null;
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(
+		private sanitizer: DomSanitizer,
+		public dialog: MatDialog
+		) { }
+
+	ngOnInit(): void {
+	}
+
+	openDialog(imageUrl: string) {
+    const dialogRef = this.dialog.open(MoviePageImageExpanderComponent, {
+      data: imageUrl
+    });
+  }
 
 
 	getSafeUrl(videoId: string): SafeResourceUrl {

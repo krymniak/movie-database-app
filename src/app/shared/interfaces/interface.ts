@@ -71,3 +71,35 @@ export interface Video {
   published_at: string;
   id: string;
 }
+
+export interface Images{
+  id: number;
+  backdrops: {
+    aspect_ratio: number;
+    file_path: string;
+    height: number;
+    iso_639_1: string | null;
+    vote_average: number;
+    vote_count: number;
+    width: number;
+  }[];
+  posters: {
+    aspect_ratio: number;
+    file_path: string;
+    height: number;
+    iso_639_1: string | null;
+    vote_average: number;
+    vote_count: number;
+    width: number;
+  }[];
+}
+
+export interface Poster {
+	aspect_ratio: number;
+	file_path: string;
+	height: number;
+	iso_639_1: string | null;
+	vote_average: number;
+	vote_count: number;
+	width: number;
+}

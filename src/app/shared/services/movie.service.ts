@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Movie, MovieVideo, SearchMovie, SearchMovieResponse, Video } from '../interfaces/interface';
+import { Images, Movie, MovieVideo, SearchMovie, SearchMovieResponse, Video } from '../interfaces/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,9 @@ export class MovieService {
 
 	getVideo(movieId: number | null): Observable<MovieVideo> {
 		return this.http.get<MovieVideo>(`${this.baseUrl}/movie/${movieId}/videos?api_key=${this.apiKey}&language=en-US`);
+	}
+
+	getImages(movieId: number | null): Observable<Images> {
+		return this.http.get<Images>(`${this.baseUrl}/movie/${movieId}/images?api_key=${this.apiKey}&language=en`);
 	}
 }
