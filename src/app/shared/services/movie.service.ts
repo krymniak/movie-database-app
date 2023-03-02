@@ -33,4 +33,8 @@ export class MovieService {
 	getImages(movieId: number | null): Observable<Images> {
 		return this.http.get<Images>(`${this.baseUrl}/movie/${movieId}/images?api_key=${this.apiKey}&language=en`);
 	}
+
+	getRecommendations(movieId: number | null): Observable<SearchMovieResponse> {
+		return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/${movieId}/recommendations?api_key=${this.apiKey}&language=en`);
+	}
 }

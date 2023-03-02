@@ -27,7 +27,7 @@
 	</div>
 </div>
 <div class="videos-content">
-  <h2>VIDEOS</h2>
+  <h2>Videos</h2>
   <div class="videos-container mat-card-container">
     <mat-card *ngFor="let video of videos" class="video mat-card">
       <iframe [src]="getSafeUrl(video.key)"
@@ -40,10 +40,19 @@
   </div>
 </div>
 <div class="images-content">
-  <h2>POSTERS</h2>
+  <h2>Posters</h2>
   <div class="images-container">
     <mat-card *ngFor="let image of images" class="image">
 			<img [src]="'https://image.tmdb.org/t/p/w500' + image.file_path" (click)="openDialog('https://image.tmdb.org/t/p/w500' + image.file_path)">
+    </mat-card>
+  </div>
+</div>
+<div class="recommendations-content">
+  <h2>Recommendations</h2>
+  <div class="recommendations-container">
+    <mat-card *ngFor="let recomendation of recomendations" class="recommendation">
+			<a [routerLink]="['/movie']" [queryParams]="{ query: recomendation.id }" (click)="reloadPage()"><img [src]="'https://image.tmdb.org/t/p/w500' + recomendation.backdrop_path"></a>
+			<span>{{recomendation.title}}</span>
     </mat-card>
   </div>
 </div>

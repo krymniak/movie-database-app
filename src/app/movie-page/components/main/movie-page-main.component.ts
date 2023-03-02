@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Images, Movie, MovieVideo, Poster, Video } from 'src/app/shared/interfaces/interface';
+import { Images, Movie, MovieVideo, Poster, SearchMovie, SearchMovieResponse, Video } from 'src/app/shared/interfaces/interface';
 import { MovieService } from 'src/app/shared/services/movie.service';
 import { delay, map, Observable, tap} from 'rxjs';
 
@@ -17,6 +17,7 @@ export class MoviePageMainComponent implements OnInit{
 	searchQuery!: string | null;
 	video$!: Observable<Video[]>
 	images$!: Observable<Poster[]>
+	recomendations$!: Observable<SearchMovie[]>
 
   constructor(
 		private route: ActivatedRoute,
@@ -39,7 +40,11 @@ export class MoviePageMainComponent implements OnInit{
 						return data.posters
 					})
 				)
-				console.log(this.images$)
+				this.recomendations$ = this.moviService.getRecommendations(this.movieId).pipe(
+					map((data: SearchMovieResponse) => {
+						return data.results
+					})
+				)
 			})
 		)
 	}

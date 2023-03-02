@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Images, Movie, Poster, Video } from 'src/app/shared/interfaces/interface';
+import { Images, Movie, Poster, SearchMovie, Video } from 'src/app/shared/interfaces/interface';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { MoviePageImageExpanderComponent } from '../image-expander/movie-page-image-expander.component';
@@ -14,6 +14,7 @@ export class MoviePageMovieComponent implements OnInit{
 	@Input() movie!: Movie;
 	@Input() videos!: Video[] | null;
 	@Input() images!: Poster[] | null;
+	@Input() recomendations!: SearchMovie[] | null;
 
   constructor(
 		private sanitizer: DomSanitizer,
@@ -23,6 +24,11 @@ export class MoviePageMovieComponent implements OnInit{
 	ngOnInit(): void {
 	}
 
+	reloadPage() {
+		setTimeout(() => {
+			location.reload()
+		}, 50)
+  }
 	openDialog(imageUrl: string) {
     const dialogRef = this.dialog.open(MoviePageImageExpanderComponent, {
       data: imageUrl
