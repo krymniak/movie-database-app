@@ -8,6 +8,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import { MoviePageImageExpanderComponent } from './components/image-expander/movie-page-image-expander.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 const routes: Routes = [
 	{
@@ -25,6 +26,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
 		MatProgressSpinnerModule,
+		MatIconModule,
 		MatDialogModule,
 		MatCardModule,
 		MatButtonModule,

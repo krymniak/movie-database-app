@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Images, Movie, MovieVideo, Poster, SearchMovie, SearchMovieResponse, Video } from 'src/app/shared/interfaces/interface';
 import { MovieService } from 'src/app/shared/services/movie.service';
@@ -12,12 +12,18 @@ import { delay, map, Observable, tap} from 'rxjs';
 })
 export class MoviePageMainComponent implements OnInit{
 
+	showScrollButton = false;
 	movieId!: number | null
 	movie$!: Observable<Movie>
 	searchQuery!: string | null;
 	video$!: Observable<Video[]>
 	images$!: Observable<Poster[]>
 	recomendations$!: Observable<SearchMovie[]>
+
+	@HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    this.showScrollButton = window.pageYOffset > 500; // adjust the threshold as needed
+  }
 
   constructor(
 		private route: ActivatedRoute,
@@ -49,6 +55,8 @@ export class MoviePageMainComponent implements OnInit{
 		)
 	}
 
-	
+	scrollTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 }

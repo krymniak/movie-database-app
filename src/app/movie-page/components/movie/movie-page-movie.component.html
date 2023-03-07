@@ -26,36 +26,42 @@
 		
 	</div>
 </div>
-<div class="videos-content">
-  <h2>Videos</h2>
-  <div class="videos-container mat-card-container">
-    <mat-card *ngFor="let video of videos" class="video mat-card">
-      <iframe [src]="getSafeUrl(video.key)"
-              frameborder="0"
-							width="300px"
-							height="220px"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
-    </mat-card>
-  </div>
-</div>
-<div class="images-content">
-  <h2>Posters</h2>
-  <div class="images-container">
-    <mat-card *ngFor="let image of images" class="image">
-			<img [src]="'https://image.tmdb.org/t/p/w500' + image.file_path" (click)="openDialog('https://image.tmdb.org/t/p/w500' + image.file_path)">
-    </mat-card>
-  </div>
-</div>
+<ng-container *ngIf="videos?.length">
+	<div class="videos-content">
+		<h2>Videos</h2>
+		<div class="videos-container mat-card-container">
+			<mat-card *ngFor="let video of videos" class="video mat-card">
+				<iframe [src]="getSafeUrl(video.key)"
+								frameborder="0"
+								width="300px"
+								height="220px"
+								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
+			</mat-card>
+		</div>
+	</div>
+</ng-container>
+<ng-container *ngIf="images?.length">
+	<div class="images-content">
+		<h2>Posters</h2>
+		<div class="images-container">
+			<mat-card *ngFor="let image of images" class="image">
+				<img [src]="'https://image.tmdb.org/t/p/w500' + image.file_path" (click)="openDialog('https://image.tmdb.org/t/p/w500' + image.file_path)" (error)="setDefaultPoster($event)">
+			</mat-card>
+		</div>
+	</div>
+</ng-container>
 <div class="recommendations-content">
   <h2>Recommendations</h2>
   <div class="recommendations-container">
     <mat-card *ngFor="let recomendation of recomendations" class="recommendation">
-			<a [routerLink]="['/movie']" [queryParams]="{ query: recomendation.id }" (click)="reloadPage()"><img [src]="'https://image.tmdb.org/t/p/w500' + recomendation.backdrop_path"></a>
+			<a [routerLink]="['/movie']" [queryParams]="{ query: recomendation.id }" (click)="reloadPage()"><img [src]="'https://image.tmdb.org/t/p/w500' + recomendation.backdrop_path" (error)="setDefaultPoster($event)"></a>
 			<span>{{recomendation.title}}</span>
     </mat-card>
   </div>
 </div>
+
+
 
 
 
