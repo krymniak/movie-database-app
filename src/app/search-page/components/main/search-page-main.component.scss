@@ -20,7 +20,12 @@ button.scroll-to-top:hover {
 }
 .sidebar{
 	flex: 0 0 200px;
-
+	mat-slider{
+		width: 180px;
+	}
+	mat-form-field{
+		width: 180px;
+	}
 }
 
 .mainbar{
@@ -51,7 +56,6 @@ button.scroll-to-top:hover {
 	display: flex;
 	flex-direction: column;
 	h2{
-		text-align: center;
 		margin: 20px 0px 0px 0px;
 		font-size: 26px;
 	}
@@ -64,7 +68,7 @@ button.scroll-to-top:hover {
 		height: 40px;
 		width: 100px;
 		border-radius: 5px;
-		margin: 10px 0px 10px 50px;
+		margin: 10px 0px 10px 0px;
 	}
 	button:hover {
 		color: #00d9ff;
@@ -72,5 +76,16 @@ button.scroll-to-top:hover {
 	
 	button:active {
 		transform: scale(0.95);
+	}
+}
+span{
+	margin-top: 10px;
+	font-size: 16px;
+}
+
+mat-chip-listbox{
+	span{
+		margin-top: 0;
+		font-size: 12px;
 	}
 }

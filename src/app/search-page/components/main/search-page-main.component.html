@@ -5,16 +5,45 @@
 		<button mat-button (click)="sort('release_date')">Release date</button>
 		<button mat-button (click)="sort('title')">Title</button>
 		<button mat-button (click)="sort('popularity')">Popularity</button>
+		<h2>Filter by:</h2>
+		<span>Genres</span>
+		<mat-chip-listbox multiple #chipList>
+			<mat-basic-chip-option *ngFor="let genre of genres" (click)="selectChip($event, genre.id)">
+				<span>{{ genre.name }}</span>
+			</mat-basic-chip-option>
+		</mat-chip-listbox>
+		<span>User rating</span>
+		<mat-slider [min]="1" [max]="10" [step]="1" showTickMarks discrete>
+			<input matSliderStartThumb [(ngModel)]="userScoreMinValue">
+			<input matSliderEndThumb [(ngModel)]="userScoreMaxValue"></mat-slider>
+		<span>Release date</span>
+		<mat-form-field appearance="fill">
+			<mat-label>From</mat-label>
+			<input matInput [matDatepicker]="picker" [(ngModel)]="dateFrom">
+			<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+		<mat-form-field appearance="fill">
+			<mat-label>To</mat-label>
+			<input matInput [matDatepicker]="picker2" [(ngModel)]="dateTo">
+			<mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+			<mat-datepicker #picker2></mat-datepicker>
+		</mat-form-field>
+	<button mat-button (click)="filter()">Filter</button>
 	</div>
 	<div class="mainbar">
-		<div class="movie-list" *ngIf="!message">
-			<div *ngFor="let movie of movieList$ | async" class="movie-card">
-				<app-search-page-list [movie]="movie"></app-search-page-list>
+		<ng-container *ngIf="!message; else block">
+			<div class="movie-list">
+				<div *ngFor="let movie of movieList$ | async" class="movie-card">
+					<app-search-page-list [movie]="movie"></app-search-page-list>
+				</div>
 			</div>
-		</div>
-		<div class="error" *ngIf="message">
-			There are no movies that matched your query.
-		</div>
+		</ng-container>
+		<ng-template  #block >
+			<div class="error" *ngIf="movieList$ | async">
+				There are no movies that matched your query.
+			</div>
+		</ng-template>
 	</div>
 </div>
 
