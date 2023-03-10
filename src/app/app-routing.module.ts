@@ -13,6 +13,15 @@ const routes: Routes = [
   },
 	{
     path: 'movie', loadChildren: () => import('./movie-page/movie-page.module').then(m => m.MoviePageModule)
+  },
+	{
+    path: 'popular', loadChildren: () => import('./popular-page/popular-page.module').then(m => m.PopularPageModule)
+  },
+	{
+    path: 'top-rated', loadChildren: () => import('./top-rated-page/top-rated-page.module').then(m => m.TopRatedPageModule)
+  },
+	{
+    path: 'upcoming', loadChildren: () => import('./upcoming-page/upcoming-page.module').then(m => m.UpcomingPageModule)
   }
 ];
 

@@ -14,8 +14,28 @@ export class MovieService {
   constructor(private http: HttpClient) { }
 
 
-  getPopularMovies() {
-    return this.http.get(`${this.baseUrl}/movie/popular?api_key=${this.apiKey}`);
+  getPopularMovies(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/popular?api_key=${this.apiKey}&language=en&page=1`);
+  }
+
+	getPopularMovies2(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/popular?api_key=${this.apiKey}&language=en&page=2`);
+  }
+
+	getTopRatedMovies(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=en&page=1`);
+  }
+
+	getTopRatedMovies2(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/top_rated?api_key=${this.apiKey}&language=en&page=2`);
+  }
+
+	getUpcomingMovies(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/upcoming?api_key=${this.apiKey}&language=en&page=1`);
+  }
+
+	getUpcomingMovies2(): Observable<SearchMovieResponse> {
+    return this.http.get<SearchMovieResponse>(`${this.baseUrl}/movie/upcoming?api_key=${this.apiKey}&language=en&page=2`);
   }
 
 	searchMovies(query: string | null): Observable<SearchMovieResponse> {

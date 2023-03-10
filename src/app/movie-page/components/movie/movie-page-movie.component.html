@@ -12,7 +12,7 @@
 		<div class="progress-bar" *ngIf="movie.vote_average">
 			<div class="progress-circle">
 				<mat-spinner [value]="movie.vote_average * 10"[color]="getRatingColor(movie.vote_average)" diameter="70" mode="determinate"></mat-spinner>
-				<div class="progress-number">{{ movie.vote_average }}</div>
+				<div class="progress-number">{{ movie.vote_average | number: '1.1-1' }}</div>
 			</div>
 			<span>User rating</span>
 		</div>
@@ -51,15 +51,17 @@
 		</div>
 	</div>
 </ng-container>
-<div class="recommendations-content">
-  <h2>Recommendations</h2>
-  <div class="recommendations-container">
-    <mat-card *ngFor="let recomendation of recomendations" class="recommendation">
-			<a [routerLink]="['/movie']" [queryParams]="{ query: recomendation.id }" (click)="reloadPage()"><img [src]="'https://image.tmdb.org/t/p/w500' + recomendation.backdrop_path" (error)="setDefaultPoster($event)"></a>
-			<span>{{recomendation.title}}</span>
-    </mat-card>
-  </div>
-</div>
+<ng-container *ngIf="recomendations?.length">
+	<div class="recommendations-content">
+		<h2>Recommendations</h2>
+		<div class="recommendations-container">
+			<mat-card *ngFor="let recomendation of recomendations" class="recommendation">
+				<a [routerLink]="['/movie']" [queryParams]="{ query: recomendation.id }" (click)="reloadPage()"><img [src]="'https://image.tmdb.org/t/p/w500' + recomendation.backdrop_path" (error)="setDefaultPoster($event)"></a>
+				<span>{{recomendation.title}}</span>
+			</mat-card>
+		</div>
+	</div>
+</ng-container>
 
 
 

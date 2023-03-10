@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchPageListComponent } from './components/list/search-page-list.component';
-import { SearchPageMainComponent } from './components/main/search-page-main.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
@@ -14,18 +12,20 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TopRatedPageMainComponent } from './components/main/top-rated-page-main.component';
+import { TopRatedPageListComponent } from './components/list/top-rated-page-list.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: SearchPageMainComponent
+		component: TopRatedPageMainComponent
 	}
 ]
 
 @NgModule({
   declarations: [
-		SearchPageMainComponent,
-		SearchPageListComponent
+		TopRatedPageMainComponent,
+		TopRatedPageListComponent
   ],
   imports: [
     CommonModule,
@@ -42,8 +42,8 @@ const routes: Routes = [
 		MatButtonModule,
 		RouterModule.forChild(routes)
   ],
-	exports:[SearchPageListComponent],
+	exports:[],
   providers: [],
   bootstrap: []
 })
-export class SearchPageModule { }
+export class TopRatedPageModule { }

@@ -29,3 +29,27 @@
 	margin-bottom: 0;
 	font-size: 0.9rem;
 }
+
+.progress-bar {
+	margin-top: 10px;
+	display: flex;
+	span{
+		padding-top: 10px;
+	}
+}
+
+.progress-circle {
+	position: relative;
+	width: 70px;
+	height: 70px;	
+}
+
+.progress-number {
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	transform: translate(-50%, -50%);
+	font-size: 12px;
+	font-weight: bold;
+	color: #000000;
+}

@@ -4,9 +4,9 @@
 		<a [routerLink]="['/main']">Movie DB</a>
   </div>
     <div class="group">
-			<button mat-button>Popular</button>
-			<button mat-button>Top rated</button>
-			<button mat-button>Upcoming</button>
+			<button mat-button [routerLink]="['/popular']">Popular</button>
+			<button mat-button [routerLink]="['/top-rated']">Top rated</button>
+			<button mat-button [routerLink]="['/upcoming']">Upcoming</button>
 		</div>
 </mat-toolbar>
 <div class="container">

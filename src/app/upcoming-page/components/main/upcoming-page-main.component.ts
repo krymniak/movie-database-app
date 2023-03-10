@@ -1,18 +1,15 @@
-
 import { Component, OnInit, HostListener} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, Observable, tap} from 'rxjs';
+import { map, Observable, tap, mergeMap} from 'rxjs';
 import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
 import { MovieService } from 'src/app/shared/services/movie.service';
 
-
 @Component({
-  selector: 'app-search-page-main',
-  templateUrl: './search-page-main.component.html',
-  styleUrls: ['./search-page-main.component.scss']
+  selector: 'app-upcoming-page-main',
+  templateUrl: './upcoming-page-main.component.html',
+  styleUrls: ['./upcoming-page-main.component.scss']
 })
-export class SearchPageMainComponent implements OnInit{
-
+export class UpcomingPageMainComponent implements OnInit{
 	dateFrom!: Date;
 	dateTo!: Date;
 	userScoreMinValue: number = 1;
@@ -112,12 +109,18 @@ export class SearchPageMainComponent implements OnInit{
 
 	movieList$!: Observable<SearchMovie[]>
 
-	searchQuery!: string | null;
 	message: string | null = '';
 
 	ngOnInit(): void {
-    this.searchQuery = this.route.snapshot.queryParamMap.get('query');
-		this.movieList$ = this.moviService.searchMovies(this.searchQuery).pipe(
+		this.movieList$ = this.moviService.getUpcomingMovies().pipe(
+			mergeMap(response1 => this.moviService.getUpcomingMovies2().pipe(map((response2) => {
+				return {
+					page: response2.page,
+					results: [...response1.results, ...response2.results],
+					total_pages: response2.total_pages,
+					total_results: response2.total_results
+				}
+			}))),
 			tap((data: SearchMovieResponse) => {
 				if (data.results.length == 0) {
 					this.message = 'There are no movies that matched your query.'

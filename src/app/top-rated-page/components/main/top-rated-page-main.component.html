@@ -35,7 +35,7 @@
 		<ng-container *ngIf="!message; else block">
 			<div class="movie-list">
 				<div *ngFor="let movie of movieList$ | async" class="movie-card">
-					<app-popular-page-list [movie]="movie"></app-popular-page-list>
+					<app-top-rated-page-list [movie]="movie"></app-top-rated-page-list>
 				</div>
 			</div>
 		</ng-container>

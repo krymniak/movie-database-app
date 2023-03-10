@@ -6,5 +6,12 @@
 		</a>
 		<p>{{movie.release_date | date}}</p>
 		<p class="movie-overview">{{ movie.overview }}</p>
+		<div class="progress-bar" *ngIf="movie.vote_average">
+			<div class="progress-circle">
+				<mat-spinner [value]="movie.vote_average * 10"[color]="getRatingColor(movie.vote_average)" diameter="40" mode="determinate"></mat-spinner>
+				<div class="progress-number">{{ movie.vote_average | number: '1.1-1' }}</div>
+			</div>
+			<span>User rating</span>
+		</div>
 	</div>
 </div>

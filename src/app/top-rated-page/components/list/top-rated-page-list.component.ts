@@ -4,11 +4,11 @@ import { MovieService } from 'src/app/shared/services/movie.service';
 
 
 @Component({
-  selector: 'app-popular-page-list',
-  templateUrl: './popular-page-list.component.html',
-  styleUrls: ['./popular-page-list.component.scss']
+  selector: 'app-top-rated-page-list',
+  templateUrl: './top-rated-page-list.component.html',
+  styleUrls: ['./top-rated-page-list.component.scss']
 })
-export class PopularPageListComponent implements OnInit{
+export class TopRatedPageListComponent implements OnInit{
 	@Input() movie!: SearchMovie;
 
 	constructor(
