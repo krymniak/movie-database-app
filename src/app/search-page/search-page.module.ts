@@ -14,6 +14,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { StoreModule } from '@ngrx/store';
+import { searchReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { SearchEffects } from './store/effects';
 
 const routes: Routes = [
 	{
@@ -40,6 +44,8 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		MatSliderModule,
 		MatButtonModule,
+		StoreModule.forFeature('movieList', searchReducer),
+		EffectsModule.forFeature([SearchEffects]),
 		RouterModule.forChild(routes)
   ],
 	exports:[SearchPageListComponent],

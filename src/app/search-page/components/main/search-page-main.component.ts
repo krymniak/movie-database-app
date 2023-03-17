@@ -1,9 +1,12 @@
 
 import { Component, OnInit, HostListener} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { map, Observable, tap} from 'rxjs';
+import { AppStateInterface } from 'src/app/shared/interfaces/appState.interface';
 import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
-import { MovieService } from 'src/app/shared/services/movie.service';
+import * as SearchMoviesActions from 'src/app/search-page/store/actions'
+import { selectSearchMovies } from '../../store/selectors';
 
 
 @Component({
@@ -107,7 +110,7 @@ export class SearchPageMainComponent implements OnInit{
 
   constructor(
 		private route: ActivatedRoute,
-		private moviService: MovieService
+		private store: Store<AppStateInterface>
 		) { }
 
 	movieList$!: Observable<SearchMovie[]>
@@ -117,15 +120,14 @@ export class SearchPageMainComponent implements OnInit{
 
 	ngOnInit(): void {
     this.searchQuery = this.route.snapshot.queryParamMap.get('query');
-		this.movieList$ = this.moviService.searchMovies(this.searchQuery).pipe(
-			tap((data: SearchMovieResponse) => {
-				if (data.results.length == 0) {
+		this.store.dispatch(SearchMoviesActions.searchMovies({query: this.searchQuery}))
+		this.movieList$ = this.store.pipe(select(selectSearchMovies)).pipe(
+			tap((data: SearchMovie[]) => {
+				if (data.length == 0) {
 					this.message = 'There are no movies that matched your query.'
 				}
 			}
-		),
-			map(data => data.results)
-		
+		)
 		)
   }
 
