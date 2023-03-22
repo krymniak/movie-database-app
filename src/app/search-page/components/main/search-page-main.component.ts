@@ -123,9 +123,9 @@ export class SearchPageMainComponent implements OnInit{
 		this.store.dispatch(SearchMoviesActions.searchMovies({query: this.searchQuery}))
 		this.movieList$ = this.store.pipe(select(selectSearchMovies)).pipe(
 			tap((data: SearchMovie[]) => {
-				if (data.length == 0) {
-					this.message = 'There are no movies that matched your query.'
-				}
+				if (data.length === 0) {
+					this.message = 'Ther are no movies that matched your query.'
+				} else this.message = null
 			}
 		)
 		)

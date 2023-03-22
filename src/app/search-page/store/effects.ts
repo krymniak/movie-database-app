@@ -14,9 +14,7 @@ export class SearchEffects {
     this.actions$.pipe(
       ofType(SearchMoviesActions.searchMovies),
       switchMap(action => {
-				console.log('effect action:', action);
-
-    return this.movieService.searchMovies(action.query).pipe(
+        return this.movieService.searchMovies(action.query).pipe(
           map((response: SearchMovieResponse) => SearchMoviesActions.searchMoviesSuccess({ movies: response.results })),
           catchError((error) => of(SearchMoviesActions.searchMoviesFailure({ error })))
         ) }

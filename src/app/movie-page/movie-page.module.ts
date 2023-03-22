@@ -9,6 +9,10 @@ import {MatCardModule} from '@angular/material/card';
 import { MoviePageImageExpanderComponent } from './components/image-expander/movie-page-image-expander.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatIconModule} from '@angular/material/icon';
+import { StoreModule } from '@ngrx/store';
+import { getMovieReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { GetMovieEffects } from './store/effects';
 
 const routes: Routes = [
 	{
@@ -30,6 +34,8 @@ const routes: Routes = [
 		MatDialogModule,
 		MatCardModule,
 		MatButtonModule,
+		StoreModule.forFeature('moviePage', getMovieReducer),
+		EffectsModule.forFeature([GetMovieEffects]),
 		RouterModule.forChild(routes)
   ],
 	exports:[MoviePageMovieComponent,

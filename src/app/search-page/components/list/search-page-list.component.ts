@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchMovie } from 'src/app/shared/interfaces/interface';
-import { MovieService } from 'src/app/shared/services/movie.service';
 
 
 @Component({
@@ -13,7 +12,7 @@ export class SearchPageListComponent implements OnInit {
 	@Input() movie!: SearchMovie;
 
 	constructor(
-		private moviService: MovieService
+		
 	) { }
 
 

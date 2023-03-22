@@ -1,8 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Images, Movie, MovieVideo, Poster, SearchMovie, SearchMovieResponse, Video } from 'src/app/shared/interfaces/interface';
-import { MovieService } from 'src/app/shared/services/movie.service';
 import { delay, map, Observable, tap} from 'rxjs';
+import { AppStateInterface } from 'src/app/shared/interfaces/appState.interface';
+import { select, Store } from '@ngrx/store';
+import * as GetMovieActions from 'src/app/movie-page/store/actions'
+import { selectGetImages, selectGetMovie, selectGetRecomendations, selectGetVideo } from '../../store/selectors';
 
 
 @Component({
@@ -14,7 +17,7 @@ export class MoviePageMainComponent implements OnInit{
 
 	showScrollButton = false;
 	movieId!: number | null
-	movie$!: Observable<Movie>
+	movie$!: Observable<Movie | null>
 	searchQuery!: string | null;
 	video$!: Observable<Video[]>
 	images$!: Observable<Poster[]>
@@ -22,37 +25,25 @@ export class MoviePageMainComponent implements OnInit{
 
 	@HostListener('window:scroll', ['$event'])
   onWindowScroll(event: Event) {
-    this.showScrollButton = window.pageYOffset > 500; // adjust the threshold as needed
+    this.showScrollButton = window.pageYOffset > 500;
   }
 
   constructor(
 		private route: ActivatedRoute,
-		private moviService: MovieService
+		private store: Store<AppStateInterface>
 	) { }
 
 
 	ngOnInit(): void {
 		this.searchQuery = this.route.snapshot.queryParamMap.get('query');
-		this.movie$ = this.moviService.getMovieDetails(this.searchQuery).pipe(
-			tap((movie: Movie) => {
-				this.movieId = movie.id
-				this.video$ = this.moviService.getVideo(this.movieId).pipe(
-					map((data: MovieVideo) => {
-						return data.results
-					})
-				)
-				this.images$ = this.moviService.getImages(this.movieId).pipe(
-					map((data: Images) => {
-						return data.posters
-					})
-				)
-				this.recomendations$ = this.moviService.getRecommendations(this.movieId).pipe(
-					map((data: SearchMovieResponse) => {
-						return data.results
-					})
-				)
-			})
-		)
+		this.store.dispatch(GetMovieActions.getMovie({query: this.searchQuery}))
+		this.movie$ = this.store.pipe(select(selectGetMovie))
+		this.store.dispatch(GetMovieActions.getVideo({movieId: parseInt(this.searchQuery!)}));
+		this.video$ = this.store.pipe(select(selectGetVideo));
+		this.store.dispatch(GetMovieActions.getImages({movieId: parseInt(this.searchQuery!)}));
+		this.images$ = this.store.pipe(select(selectGetImages));
+		this.store.dispatch(GetMovieActions.getRecomendations({movieId: parseInt(this.searchQuery!)}));
+		this.recomendations$ = this.store.pipe(select(selectGetRecomendations))
 	}
 
 	scrollTop() {
