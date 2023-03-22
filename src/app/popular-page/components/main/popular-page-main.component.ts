@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { map, Observable, tap, mergeMap} from 'rxjs';
-import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
-import { MovieService } from 'src/app/shared/services/movie.service';
+import { AppStateInterface } from 'src/app/shared/interfaces/appState.interface';
+import { SearchMovie } from 'src/app/shared/interfaces/interface';
+import * as GetPopularMoviesActions from 'src/app/popular-page/store/actions'
+import { selectPopularMovies } from '../../store/selectors';
 
 @Component({
   selector: 'app-popular-page-main',
@@ -103,8 +105,7 @@ export class PopularPageMainComponent implements OnInit{
   }
 
   constructor(
-		private route: ActivatedRoute,
-		private moviService: MovieService
+		private store: Store<AppStateInterface>
 		) { }
 
 	movieList$!: Observable<SearchMovie[]>
@@ -112,23 +113,14 @@ export class PopularPageMainComponent implements OnInit{
 	message: string | null = '';
 
 	ngOnInit(): void {
-		this.movieList$ = this.moviService.getPopularMovies().pipe(
-			mergeMap(response1 => this.moviService.getPopularMovies2().pipe(map((response2) => {
-				return {
-					page: response2.page,
-					results: [...response1.results, ...response2.results],
-					total_pages: response2.total_pages,
-					total_results: response2.total_results
-				}
-			}))),
-			tap((data: SearchMovieResponse) => {
-				if (data.results.length == 0) {
+		this.store.dispatch(GetPopularMoviesActions.getPopularMovies())
+		this.movieList$ = this.store.pipe(select(selectPopularMovies)).pipe(
+			tap((data) => {
+				if (data.length == 0) {
 					this.message = 'There are no movies that matched your query.'
-				}
+				} else this.message = null
 			}
-		),
-			map(data => data.results)
-		
+		)
 		)
   }
 

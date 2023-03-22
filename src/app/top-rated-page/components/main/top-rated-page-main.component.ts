@@ -1,8 +1,10 @@
 import { Component, OnInit, HostListener} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { map, Observable, tap, mergeMap} from 'rxjs';
+import { AppStateInterface } from 'src/app/shared/interfaces/appState.interface';
 import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
-import { MovieService } from 'src/app/shared/services/movie.service';
+import * as GetTopRatedMoviesActions from 'src/app/top-rated-page/store/actions'
+import { selectTopRatedMovies } from '../../store/selectors';
 
 @Component({
   selector: 'app-top-rated-page-main',
@@ -103,8 +105,7 @@ export class TopRatedPageMainComponent implements OnInit{
   }
 
   constructor(
-		private route: ActivatedRoute,
-		private moviService: MovieService
+		private store: Store<AppStateInterface>
 		) { }
 
 	movieList$!: Observable<SearchMovie[]>
@@ -112,23 +113,14 @@ export class TopRatedPageMainComponent implements OnInit{
 	message: string | null = '';
 
 	ngOnInit(): void {
-		this.movieList$ = this.moviService.getTopRatedMovies().pipe(
-			mergeMap(response1 => this.moviService.getTopRatedMovies2().pipe(map((response2) => {
-				return {
-					page: response2.page,
-					results: [...response1.results, ...response2.results],
-					total_pages: response2.total_pages,
-					total_results: response2.total_results
-				}
-			}))),
-			tap((data: SearchMovieResponse) => {
-				if (data.results.length == 0) {
+		this.store.dispatch(GetTopRatedMoviesActions.getTopRatedMovies())
+		this.movieList$ = this.store.pipe(select(selectTopRatedMovies)).pipe(
+			tap((data) => {
+				if (data.length == 0) {
 					this.message = 'There are no movies that matched your query.'
-				}
+				} else this.message = null
 			}
-		),
-			map(data => data.results)
-		
+		)
 		)
   }
 

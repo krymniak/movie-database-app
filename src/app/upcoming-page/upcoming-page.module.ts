@@ -14,6 +14,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { UpcomingPageMainComponent } from './components/main/upcoming-page-main.component';
 import { UpcomingPageListComponent } from './components/list/upcoming-page-list.component';
+import { StoreModule } from '@ngrx/store';
+import { getUpcomingMoviesReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { UpcomingMoviesEffects } from './store/effects';
 
 const routes: Routes = [
 	{
@@ -40,6 +44,8 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		MatSliderModule,
 		MatButtonModule,
+		StoreModule.forFeature('upcomingList', getUpcomingMoviesReducer),
+		EffectsModule.forFeature([UpcomingMoviesEffects]),
 		RouterModule.forChild(routes)
   ],
 	exports:[],

@@ -48,7 +48,7 @@ const routes: Routes = [
 		EffectsModule.forFeature([SearchEffects]),
 		RouterModule.forChild(routes)
   ],
-	exports:[SearchPageListComponent],
+	exports:[],
   providers: [],
   bootstrap: []
 })

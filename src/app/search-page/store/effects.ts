@@ -4,7 +4,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as SearchMoviesActions from './actions'
 import { MovieService } from 'src/app/shared/services/movie.service';
-import { SearchMovie, SearchMovieResponse } from 'src/app/shared/interfaces/interface';
+import { SearchMovieResponse } from 'src/app/shared/interfaces/interface';
 
 @Injectable()
 export class SearchEffects {

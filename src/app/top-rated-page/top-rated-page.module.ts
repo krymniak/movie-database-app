@@ -14,6 +14,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TopRatedPageMainComponent } from './components/main/top-rated-page-main.component';
 import { TopRatedPageListComponent } from './components/list/top-rated-page-list.component';
+import { StoreModule } from '@ngrx/store';
+import { getTopRatedMoviesReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { TopRatedMoviesEffects } from './store/effects';
 
 const routes: Routes = [
 	{
@@ -40,6 +44,8 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		MatSliderModule,
 		MatButtonModule,
+		StoreModule.forFeature('topRatedList', getTopRatedMoviesReducer),
+		EffectsModule.forFeature([TopRatedMoviesEffects]),
 		RouterModule.forChild(routes)
   ],
 	exports:[],

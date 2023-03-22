@@ -14,6 +14,10 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { PopularPageMainComponent } from './components/main/popular-page-main.component';
 import { PopularPageListComponent } from './components/list/popular-page-list.component';
+import { StoreModule } from '@ngrx/store';
+import { getPopularMoviesReducer } from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { PopularMoviesEffects } from './store/effects';
 
 const routes: Routes = [
 	{
@@ -40,6 +44,8 @@ const routes: Routes = [
 		ReactiveFormsModule,
 		MatSliderModule,
 		MatButtonModule,
+		StoreModule.forFeature('popularList', getPopularMoviesReducer),
+		EffectsModule.forFeature([PopularMoviesEffects]),
 		RouterModule.forChild(routes)
   ],
 	exports:[],
